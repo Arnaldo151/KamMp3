@@ -83,7 +83,7 @@ while true; do
             ;;
         [Ss]alir|[2]|*)
             echo $lineas
-            echo "<_Adiós_>"
+            echo "Vuelva Pronto 🤭"
             echo $lineas
             exit
             ;;
