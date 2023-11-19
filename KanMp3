@@ -1,4 +1,3 @@
-#!/bin/bash
 [Cc]ancion|Canción|canción|1)
 
 printf $red
@@ -16,8 +15,8 @@ case $arch in
 			exit
 		fi
 
-		# Add these lines to create the directory if it doesn't exist
-		download_dir="$HOME/Downloads/KANMP3"
+		# Updated download directory path
+		download_dir="/storage/emulated/0/Download/KANMP3"
 		mkdir -p "$download_dir"
 
 		sleep 0.5
