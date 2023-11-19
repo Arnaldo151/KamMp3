@@ -1,33 +1,36 @@
-#!/bin/bash
+clear
 lineas="==================================="
-red='\033[1;31m'
+red='\033[1;31m'                                        
+green='\033[1;32m'
+yellow='\033[1;33m'                                   
+blue='\033[1;34m'                                       
+magenta='\033[1;35m'                                    
+cyan='\033[1;36m'
 reset='\033[0m'
-
 printf $red
-printf "
+
+echo "
 ╻┏┓╻┏━┓╺┳╸┏━┓╻  ╻   ┏━┓╻ ╻
 ┃┃┗┫┗━┓ ┃ ┣━┫┃  ┃   ┗━┓┣━┫
 ╹╹ ╹┗━┛ ╹ ╹ ╹┗━╸┗━╸╹┗━┛╹ ╹
-"
-printf $reset
 
-# Determine the script directory
-script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "$script_dir"
+		printf $green
+		echo $lineas
+		pkg update -y
+		apt update -y
+		apt install ffmpeg
+		apt install python
+		pip install yt-dlp
+		chmod +x KanMp3
+		echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
+		printf $reset
 
-# Check if Termux is present
-if command -v termux-info > /dev/null 2>&1; then
-    pkg update -y
-    pkg install -y ffmpeg
-    pkg install -y python
-    pip install yt-dlp
-    chmod +x KanMp3
-    printf $red
-    echo $lineas
-    echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
-    printf $reset
-else
-    printf $red
-    echo "Este script está diseñado para Termux. No se detectó Termux en el sistema."
-    printf $reset
-fi
+ "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
+		printf $reset
+	;;
+	[3]|*)
+		printf $blue
+		echo $lineas
+		echo "              Bye"
+		echo $lineas
+esac
