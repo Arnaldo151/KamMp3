@@ -16,11 +16,21 @@ echo "┗┳┛┃ ┃┃ ┃ ┃┃┃ ┃┃╻┃┃┗┫┃  ┃ ┃┣━�
 echo " ╹ ┗━┛┗━┛╺┻┛┗━┛┗┻┛╹ ╹┗━╸┗━┛╹ ╹╺┻┛"
 echo $lineas
 
+# Ensure the script is running from the correct directory
+current_dir=$(pwd)
+script_dir="KanMp3"
+
+if [[ "$current_dir" != *"$script_dir"* ]]; then
+    echo "Error: Please run the script from the '$script_dir' directory."
+    exit 1
+fi
+
 while true; do
     printf $green
     read -p "Que descargaras :
      [1] Música 
      [2] Salir " arch
+     Eliga uno :
     printf $reset
 
     case $arch in
@@ -31,6 +41,7 @@ while true; do
             [2] Playlist 
             [3] Volver al menú principal " arch
             case $arch in
+            Eliga uno :
                 [Cc]ancion|Canción|canción|1)
                     echo $lineas
                     read -p "Pega la URL de la canción _>" Ind
