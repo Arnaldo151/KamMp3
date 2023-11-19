@@ -1,104 +1,56 @@
 #!/bin/bash
-lineas="===================================="
-red='\033[1;31m'
-green='\033[1;32m'
-reset='\033[0m'
+[Cc]ancion|Canción|canción|1)
 
 printf $red
-echo $lineas
-echo "╻ ╻┏━┓╻ ╻╺┳┓┏━┓╻ ╻┏┓╻╻  ┏━┓┏━┓╺┳┓"
-echo "┗┳┛┃ ┃┃ ┃ ┃┃┃ ┃┃╻┃┃┗┫┃  ┃ ┃┣━┫ ┃┃"
-echo " ╹ ┗━┛┗━┛╺┻┛┗━┛┗┻┛╹ ╹┗━╸┗━┛╹ ╹╺┻┛"
-echo $lineas
+read -p "Que quieres descargar:
+	[1] Canción 
+	[2] Playlist 
+	[3] Salir " arch
+case $arch in
+	[Cc]ancion|Canción|canción|1)
+		echo $lineas
+		read -p "Pega la URL de la canción _>" Ind
+		if [ -z $Ind ];then
+			echo $lineas
+			echo "No ingresante una url _>"
+			exit
+		fi
 
-# Ensure the script is running from the correct directory
-current_dir=$(pwd)
-script_dir="KANMP3"
+		# Add these lines to create the directory if it doesn't exist
+		download_dir="$HOME/Downloads/KANMP3"
+		mkdir -p "$download_dir"
 
-if [[ ! "$current_dir" =~ .*$script_dir.* ]]; then
-    echo "Error: Please run the script from the '$script_dir' directory."
-    exit 1
-fi
+		sleep 0.5
+		echo "Iniciando descarga _>"
+		yt-dlp -o "$download_dir/%(title)s.%(ext)s" -f bestaudio --embed-thumbnail --extract-audio --audio-format mp3 --audio-quality 0 "$Ind"
+		sleep 0.5 
+		echo $lineas
+		echo "Descarga finalizada, los archivos se encuentran en: $download_dir"
+		;;
+	[Pp]laylist|2)
+		read -p "Pega la URL de la playlist _>" Play
+		if [ -z $Play ];then
+			echo "No ingresante una url _>"
+			exit
+		fi
+		echo $lineas
+		sleep 0.5
+		echo "Preparando descarga _>"
+		yt-dlp -o "$download_dir/%(playlist_index)s. %(title)s.%(ext)s" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 160K --yes-playlist "$Play"
+		echo $lineas
+		;;
+	 [3]|*)
+		echo $lineas
+		echo "<_Adiós_>"
+		echo $lineas
+esac
 
-# Check if Termux is present
-if command -v termux-info > /dev/null 2>&1; then
-    pkg update -y
-    pkg install -y ffmpeg
-    pkg install -y python
-    pip install yt-dlp
-    chmod +x KanMp3
-    printf $red
-    echo $lineas
-    echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
-    printf $reset
-else
-    printf $red
-    echo "Este script está diseñado para Termux. No se detectó Termux en el sistema."
-    printf $reset
-    exit 1
-fi
+	printf $reset
 
-while true; do
-    printf $green
-    read -p "Que descargarás:
-     [1] Música 
-     [2] Salir " arch
-     Elige uno:
-    printf $reset
-
-    case $arch in
-        [Cc]ancion|Canción|canción|1)
-            printf $red
-            read -p "Que quieres descargar:
-            [1] Canción 
-            [2] Playlist 
-            [3] Volver al menú principal " arch
-            case $arch in
-                Elige uno:
-                    [Cc]ancion|Canción|canción|1)
-                        echo $lineas
-                        read -p "Pega la URL de la canción _>" Ind
-                        if [ -z $Ind ]; then
-                            echo $lineas
-                            echo "No ingresante una url _>"
-                            exit
-                        fi
-
-                        # Update download_dir to the desired path
-                        download_dir="/storage/emulated/0/Download/KANMP3"
-                        mkdir -p "$download_dir"
-
-                        sleep 0.5
-                        echo "Iniciando descarga _>"
-                        yt-dlp -o "$download_dir/%(title)s.%(ext)s" -f bestaudio --embed-thumbnail --extract-audio --audio-format mp3 --audio-quality 0 "$Ind"
-                        sleep 0.5
-                        echo $lineas
-                        echo "Descarga finalizada, los archivos se encuentran en: $download_dir"
-                        ;;
-                    [Pp]laylist|2)
-                        read -p "Pega la URL de la playlist _>" Play
-                        if [ -z $Play ]; then
-                            echo "No ingresante una url _>"
-                            exit
-                        fi
-                        echo $lineas
-                        sleep 0.5
-                        echo "Preparando descarga _>"
-                        yt-dlp -o "$download_dir/%(playlist_index)s. %(title)s.%(ext)s" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 160K --yes-playlist "$Play"
-                        echo $lineas
-                        ;;
-                    [Vv]olver|[3]|*)
-                        break
-                        ;;
-            esac
-
-            printf $reset
-            ;;
-        [Ss]alir|[2]|*)
-            echo $lineas
-            echo "Vuelve Pronto 🤭"
-            echo $lineas
-            exit
-            ;;
-    esac
-done
+		
+		;;
+	 [3]|*)
+		echo $lineas
+		echo "Vuela Pronto 🤭"
+		echo $lineas
+esac
