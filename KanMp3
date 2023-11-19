@@ -1,12 +1,7 @@
 #!/bin/bash
-clear
 lineas="===================================="
 red='\033[1;31m'
 green='\033[1;32m'
-yellow='\033[1;33m'
-blue='\033[1;34m'
-magenta='\033[1;35m'
-cyan='\033[1;36m'
 reset='\033[0m'
 
 printf $red
@@ -18,19 +13,19 @@ echo $lineas
 
 # Ensure the script is running from the correct directory
 current_dir=$(pwd)
-script_dir="KanMp3"
+script_dir="KANMP3"
 
-if [[ "$current_dir" != *"$script_dir"* ]]; then
+if [[ ! "$current_dir" =~ .*$script_dir.* ]]; then
     echo "Error: Please run the script from the '$script_dir' directory."
     exit 1
 fi
 
 while true; do
     printf $green
-    read -p "Que descargaras :
+    read -p "Que descargarás:
      [1] Música 
      [2] Salir " arch
-     Eliga uno :
+     Elige uno:
     printf $reset
 
     case $arch in
@@ -41,49 +36,49 @@ while true; do
             [2] Playlist 
             [3] Volver al menú principal " arch
             case $arch in
-            Eliga uno :
-                [Cc]ancion|Canción|canción|1)
-                    echo $lineas
-                    read -p "Pega la URL de la canción _>" Ind
-                    if [ -z $Ind ];then
+                Elige uno:
+                    [Cc]ancion|Canción|canción|1)
                         echo $lineas
-                        echo "No ingresante una url _>"
-                        exit
-                    fi
+                        read -p "Pega la URL de la canción _>" Ind
+                        if [ -z $Ind ]; then
+                            echo $lineas
+                            echo "No ingresante una url _>"
+                            exit
+                        fi
 
-                    # Update download_dir to the desired path
-                    download_dir="/storage/emulated/0/Download/KANMP3"
-                    mkdir -p "$download_dir"
+                        # Update download_dir to the desired path
+                        download_dir="/storage/emulated/0/Download/KANMP3"
+                        mkdir -p "$download_dir"
 
-                    sleep 0.5
-                    echo "Iniciando descarga _>"
-                    yt-dlp -o "$download_dir/%(title)s.%(ext)s" -f bestaudio --embed-thumbnail --extract-audio --audio-format mp3 --audio-quality 0 "$Ind"
-                    sleep 0.5 
-                    echo $lineas
-                    echo "Descarga finalizada, los archivos se encuentran en: $download_dir"
-                    ;;
-                [Pp]laylist|2)
-                    read -p "Pega la URL de la playlist _>" Play
-                    if [ -z $Play ];then
-                        echo "No ingresante una url _>"
-                        exit
-                    fi
-                    echo $lineas
-                    sleep 0.5
-                    echo "Preparando descarga _>"
-                    yt-dlp -o "$download_dir/%(playlist_index)s. %(title)s.%(ext)s" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 160K --yes-playlist "$Play"
-                    echo $lineas
-                    ;;
-                [Vv]olver|[3]|*)
-                    break
-                    ;;
+                        sleep 0.5
+                        echo "Iniciando descarga _>"
+                        yt-dlp -o "$download_dir/%(title)s.%(ext)s" -f bestaudio --embed-thumbnail --extract-audio --audio-format mp3 --audio-quality 0 "$Ind"
+                        sleep 0.5
+                        echo $lineas
+                        echo "Descarga finalizada, los archivos se encuentran en: $download_dir"
+                        ;;
+                    [Pp]laylist|2)
+                        read -p "Pega la URL de la playlist _>" Play
+                        if [ -z $Play ]; then
+                            echo "No ingresante una url _>"
+                            exit
+                        fi
+                        echo $lineas
+                        sleep 0.5
+                        echo "Preparando descarga _>"
+                        yt-dlp -o "$download_dir/%(playlist_index)s. %(title)s.%(ext)s" --ignore-errors --format bestaudio --extract-audio --audio-format mp3 --audio-quality 160K --yes-playlist "$Play"
+                        echo $lineas
+                        ;;
+                    [Vv]olver|[3]|*)
+                        break
+                        ;;
             esac
 
             printf $reset
             ;;
         [Ss]alir|[2]|*)
             echo $lineas
-            echo "Vuelva Pronto 🤭"
+            echo "Vuelve Pronto 🤭"
             echo $lineas
             exit
             ;;
