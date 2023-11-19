@@ -44,8 +44,8 @@ case $arch in
 			exit
 		fi
 
-		# Add these lines to create the directory if it doesn't exist
-		download_dir="/storage/emulated/0/Download/"
+		# Update download_dir to the desired path
+		download_dir="/storage/emulated/0/Download/KANMP3"
 		mkdir -p "$download_dir"
 
 		sleep 0.5
