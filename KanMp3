@@ -111,7 +111,7 @@ case $pregunta in
 	;;
 	 [3]|*)
 		echo $lineas
-		echo "<_Adiós_>"
+		echo "<Vuelta Pronto>"
 		echo $lineas
 esac
 		
