@@ -14,6 +14,18 @@ echo "
 ┃┃┗┫┗━┓ ┃ ┣━┫┃  ┃   ┗━┓┣━┫
 ╹╹ ╹┗━┛ ╹ ╹ ╹┗━╸┗━╸╹┗━┛╹ ╹
 
+"
+printf $reset
+printf $red
+echo "Estas por instalar las herramientas necesarias para usar KanMp3"
+read -p "Selecciona tu sistema:
+[1]Termux  
+[2]Salir " os 
+printf $reset
+
+
+case $os in
+	[Tt]ermux|1)
 		printf $green
 		echo $lineas
 		pkg update -y
@@ -24,8 +36,14 @@ echo "
 		chmod +x KanMp3
 		echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
 		printf $reset
-
- "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
+	;;
+	[Uu]buntu|2) 
+		printf $cyan
+		echo $lineas
+		sudo apt install ffmpeg
+		sudo apt install yt-dlp
+		chmod +x KanMp3
+		echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
 		printf $reset
 	;;
 	[3]|*)
