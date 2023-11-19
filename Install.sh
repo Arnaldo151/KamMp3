@@ -1,54 +1,46 @@
-clear
+#!/bin/bash
 lineas="==================================="
 red='\033[1;31m'                                        
 green='\033[1;32m'
-yellow='\033[1;33m'                                   
-blue='\033[1;34m'                                       
-magenta='\033[1;35m'                                    
 cyan='\033[1;36m'
 reset='\033[0m'
-printf $red
 
-echo "
+printf $red
+printf "
 ╻┏┓╻┏━┓╺┳╸┏━┓╻  ╻   ┏━┓╻ ╻
 ┃┃┗┫┗━┓ ┃ ┣━┫┃  ┃   ┗━┓┣━┫
 ╹╹ ╹┗━┛ ╹ ╹ ╹┗━╸┗━╸╹┗━┛╹ ╹
-
 "
 printf $reset
-printf $red
-echo "Estas por instalar las herramientas necesarias para usar KanMp3"
-read -p "Selecciona tu sistema:
-[1]Termux  
-[2]Salir " os 
-printf $reset
 
+os=""
+
+if [ -e /data/data/com.termux ]; then
+    os="termux"
+else
+    os="ubuntu"
+fi
 
 case $os in
-	[Tt]ermux|1)
-		printf $green
-		echo $lineas
-		pkg update -y
-		apt update -y
-		apt install ffmpeg
-		apt install python
-		pip install yt-dlp
-		chmod +x KanMp3
-		echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
-		printf $reset
-	;;
-	[Uu]buntu|2) 
-		printf $cyan
-		echo $lineas
-		sudo apt install ffmpeg
-		sudo apt install yt-dlp
-		chmod +x KanMp3
-		echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
-		printf $reset
-	;;
-	[3]|*)
-		printf $blue
-		echo $lineas
-		echo "              Bye"
-		echo $lineas
+    termux)
+        pkg update -y
+        pkg install -y ffmpeg
+        pkg install -y python
+        pip install yt-dlp
+        chmod +x KanMp3
+        printf $green
+        echo $lineas
+        echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
+        printf $reset
+        ;;
+    ubuntu)
+        sudo apt update -y
+        sudo apt install -y ffmpeg
+        sudo apt install -y yt-dlp
+        chmod +x KanMp3
+        printf $cyan
+        echo $lineas
+        echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
+        printf $reset
+        ;;
 esac
