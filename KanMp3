@@ -22,7 +22,6 @@ echo $lineas
 printf $green
 read -p "Que descargaras :
  [1] Música 
- [2] Video 
  [3] Salir " arch
 printf $reset
 
@@ -80,7 +79,6 @@ esac
 	[Vv]ideo|2)
 printf $cyan
 read -p "Que quieres descargar:
- 	[1] Vídeo
  	[2] Playlist 
  	[3] Salir " pregunta
 
