@@ -1,6 +1,6 @@
 #!/bin/bash
 lineas="==================================="
-red='\033[1;31m'                                        
+red='\033[1;31m'
 green='\033[1;32m'
 cyan='\033[1;36m'
 reset='\033[0m'
@@ -13,9 +13,12 @@ printf "
 "
 printf $reset
 
-os=""
+# Determine the script directory
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$script_dir"
 
-if [ -e /data/data/com.termux ]; then
+# Detect if Termux is present
+if command -v termux-info > /dev/null 2>&1; then
     os="termux"
 else
     os="ubuntu"
