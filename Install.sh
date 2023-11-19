@@ -33,8 +33,8 @@ case $os in
 		apt install ffmpeg
 		apt install python
 		pip install yt-dlp
-		chmod +x YouDownload
-		echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./YouDownload"
+		chmod +x KanMp3
+		echo "Instalación finalizada. Para iniciar la herramienta ejecuta ./KanMp3"
 		printf $reset
 	;;
 	[Uu]buntu|2) 
